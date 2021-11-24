@@ -39,46 +39,58 @@ volume.connect(audioCtx.destination);
 
 //Set Defaults
 synthmixer.gain.value = 0.15;
-delayGain.gain.value = 0.5;
-dryGain.gain.value = 0.5;
-fbGain.gain.value = 0.75;
+setDelayWet(0.5);
+fbGain.gain.value = 0.65;
 delay.delayTime.value = 0.400;
 fbLowpass.type = "lowpass";
 fbLowpass.frequency.value = 250;
+lowpass.type = "lowpass";
+lowpass.frequency.value = (osc1.frequency.value + osc2.frequency.value + osc3.frequency.value + osc4.frequency.value)/4/2
+
 
 //Spin up Oscillators
 osc1.frequency.value = getRandomBetween(110,600);
 osc1.type = "sine";
-osc1.detune = 0;
+osc1.detune.value = getRandomBetween(-1000,1000);
 osc1.start();
 osc1.connect(synthmixer);
 
 osc2.frequency.value = getRandomBetween(110,600);
 osc2.type = "sine";
-osc2.detune = 200;
+osc2.detune.value = getRandomBetween(-1000,1000);
 osc2.start();
 osc2.connect(synthmixer);
 
 osc3.frequency.value = getRandomBetween(110,600);
 osc3.type = "sine";
-osc3.detune = 300;
+osc3.detune.value = getRandomBetween(-1000,1000);
 osc3.start();
 osc3.connect(synthmixer);
 
 osc4.frequency.value = getRandomBetween(110,600);
 osc4.type = "sine";
-osc4.detune = 400;
+osc4.detune.value = getRandomBetween(-1000,1000);
 osc4.start();
 osc4.connect(synthmixer);
 
-//Adjust Filter Parameters
-lowpass.type = "lowpass";
-lowpass.frequency.value = (osc1.frequency.value + osc2.frequency.value + osc3.frequency.value + osc4.frequency.value)/4/2
 
+//Utility Functions
+//----------------------------------------------------------
+//Random Number between a min and max 
 function getRandomBetween(min,max){
 	return Math.random()*(max-min)+min;
 }
 
+
+//Oscillator Functions
+//----------------------------------------------------------
+//Change Oscillators to a new set of Frequencies (Random)
+function newNotes(min,max) {
+	setRandomNotes(min,max);
+	setFilterHalfWay();
+}
+
+// Random Notes Function
 function setRandomNotes(min,max){
 	osc1.frequency.value = getRandomBetween(min,max);
 	osc2.frequency.value = getRandomBetween(min,max);
@@ -86,11 +98,25 @@ function setRandomNotes(min,max){
 	osc4.frequency.value = getRandomBetween(min,max);
 }
 
+
+//Filter Functions
+//----------------------------------------------------------
+//Set Cutoff Freq of Lowpass at Average(osc frequencies) / 2
 function setFilterHalfWay(){
 	lowpass.frequency.value = (osc1.frequency.value + osc2.frequency.value + osc3.frequency.value + osc4.frequency.value)/4/2
 }
 
-function newNotes(min,max) {
-	setRandomNotes(min,max);
-	setFilterHalfWay();
+
+//Delay Function
+//----------------------------------------------------------
+//Set Delay Wet&Dry Mix
+function setDelayWet(wetValue){
+	if (wetValue > 1) {
+		wetValue = 1;
+	} 
+	if (wetValue < 0) {
+		wetValue = 0;
+	}
+	delayGain.gain.value = wetValue;
+	dryGain.gain.value = 1 - wetValue;
 }
