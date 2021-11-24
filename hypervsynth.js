@@ -9,11 +9,42 @@ var lowpass = audioCtx.createBiquadFilter();
 var synthmixer = audioCtx.createGain();
 var volume = audioCtx.createGain();
 
+//Delay Module
+var delay = audioCtx.createDelay();
+var fbLowpass = audioCtx.createBiquadFilter();
+var fbGain = audioCtx.createGain();
+var delayGain = audioCtx.createGain();
+var dryGain = audioCtx.createGain();
+var delayInput = audioCtx.createGain();
+var delayOutput = audioCtx.createGain();
+//Connect Delay Chain Main
+delayInput.connect(delay);
+delay.connect(delayGain);
+delayGain.connect(delayOutput);
+//FeedbackLoop
+delay.connect(fbLowpass);
+fbLowpass.connect(fbGain);
+fbGain.connect(delay);
+//Dry Thru
+delayInput.connect(dryGain);
+dryGain.connect(delayOutput)
+
+
+//Conect Modules
 synthmixer.connect(lowpass);
-lowpass.connect(volume);
+lowpass.connect(delayInput);
+delayOutput.connect(volume);
 volume.connect(audioCtx.destination);
 
+
+//Set Defaults
 synthmixer.gain.value = 0.15;
+delayGain.gain.value = 0.5;
+dryGain.gain.value = 0.5;
+fbGain.gain.value = 0.75;
+delay.delayTime.value = 0.400;
+fbLowpass.type = "lowpass";
+fbLowpass.frequency.value = 250;
 
 //Spin up Oscillators
 osc1.frequency.value = getRandomBetween(110,600);

@@ -6,15 +6,18 @@
 </head>
 
 <body>
-     <a href="#" id="playButton">Play Note</a> <br><br>
-     <a href="#" id="newNote">Change Notes</a> <br><br>
+     <!-- <a href="#" id="playButton">Play Note</a> <br><br>
+     <a href="#" id="newNote">Change Notes</a> <br><br> -->
+     <input id="playButton" type="button" value="Start Sound"/><br><br>
+     <input id="newNote" type="button" value="Change Notes"/><br><br>
+
 
 <script>
     const playButton = document.getElementById('playButton')
       .addEventListener('click', () => {audioCtx.resume()});
 
     const newNote = document.getElementById('newNote')
-    .addEventListener('click', () => {newNotes(100,800)});  
+    .addEventListener('click', () => {newNotes(100,1000)});  
 </script>
 <script src="hypervsynth.js"></script>
 
