@@ -5,9 +5,13 @@ var osc1 = audioCtx.createOscillator();
 var osc2 = audioCtx.createOscillator();
 var osc3 = audioCtx.createOscillator();
 var osc4 = audioCtx.createOscillator();
+var subOsc = audioCtx.createOscillator();
 var lowpass = audioCtx.createBiquadFilter();
 var synthmixer = audioCtx.createGain();
 var volume = audioCtx.createGain();
+
+//Create Oscillator Array for cleaner controll
+var osc = [osc1, osc2, osc3, osc4];
 
 //Delay Module
 var delay = audioCtx.createDelay();
@@ -31,6 +35,8 @@ dryGain.connect(delayOutput)
 
 
 //Conect Modules
+osc.forEach(element => element.connect(synthmixer));
+subOsc.connect(synthmixer);
 synthmixer.connect(lowpass);
 lowpass.connect(delayInput);
 delayOutput.connect(volume);
@@ -49,29 +55,14 @@ lowpass.frequency.value = (osc1.frequency.value + osc2.frequency.value + osc3.fr
 
 
 //Spin up Oscillators
-osc1.frequency.value = getRandomBetween(110,600);
-osc1.type = "sine";
-osc1.detune.value = getRandomBetween(-1000,1000);
-osc1.start();
-osc1.connect(synthmixer);
+osc.forEach(element => element.frequency.value = getRandomBetween(110,600));
+osc.forEach(element => element.type = "sine");
+osc.forEach(element => element.detune.value = getRandomBetween(-1000,1000));
+osc.forEach(element => element.start());
+subOsc.frequency.value = setSubOsc();
+subOsc.type = "square";
+subOsc.start();
 
-osc2.frequency.value = getRandomBetween(110,600);
-osc2.type = "sine";
-osc2.detune.value = getRandomBetween(-1000,1000);
-osc2.start();
-osc2.connect(synthmixer);
-
-osc3.frequency.value = getRandomBetween(110,600);
-osc3.type = "sine";
-osc3.detune.value = getRandomBetween(-1000,1000);
-osc3.start();
-osc3.connect(synthmixer);
-
-osc4.frequency.value = getRandomBetween(110,600);
-osc4.type = "sine";
-osc4.detune.value = getRandomBetween(-1000,1000);
-osc4.start();
-osc4.connect(synthmixer);
 
 
 //Utility Functions
@@ -88,16 +79,17 @@ function getRandomBetween(min,max){
 function newNotes(min,max) {
 	setRandomNotes(min,max);
 	setFilterHalfWay();
+	setSubOsc();
 }
 
-// Random Notes Function
+// Random Notes Function affect all in osc array
 function setRandomNotes(min,max){
-	osc1.frequency.value = getRandomBetween(min,max);
-	osc2.frequency.value = getRandomBetween(min,max);
-	osc3.frequency.value = getRandomBetween(min,max);
-	osc4.frequency.value = getRandomBetween(min,max);
+	osc.forEach(element => element.frequency.value = getRandomBetween(min,max));
 }
 
+function setSubOsc(){
+	subOsc.frequency.value = (osc[0].frequency.value + osc[1].frequency.value + osc[2].frequency.value + osc[3].frequency.value)/4/2
+}
 
 //Filter Functions
 //----------------------------------------------------------
@@ -120,3 +112,4 @@ function setDelayWet(wetValue){
 	delayGain.gain.value = wetValue;
 	dryGain.gain.value = 1 - wetValue;
 }
+
