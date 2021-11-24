@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>HyperVsynth Testing Ground</title>
+</head>
+
+<body>
+     <a href="#" id="playButton">Play Note</a> <br><br>
+     <a href="#" id="newNote">Change Notes</a> <br><br>
+
+<script>
+    const playButton = document.getElementById('playButton')
+      .addEventListener('click', () => {audioCtx.resume()});
+
+    const newNote = document.getElementById('newNote')
+    .addEventListener('click', () => {newNotes(100,800)});  
+</script>
+<script src="hypervsynth.js"></script>
+
+</body>
+
+</html>
