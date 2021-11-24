@@ -59,7 +59,7 @@ osc.forEach(element => element.frequency.value = getRandomBetween(110,600));
 osc.forEach(element => element.type = "sine");
 osc.forEach(element => element.detune.value = getRandomBetween(-1000,1000));
 osc.forEach(element => element.start());
-subOsc.frequency.value = setSubOsc();
+setSubOsc();
 subOsc.type = "square";
 subOsc.start();
 
@@ -88,7 +88,7 @@ function setRandomNotes(min,max){
 }
 
 function setSubOsc(){
-	subOsc.frequency.value = (osc[0].frequency.value + osc[1].frequency.value + osc[2].frequency.value + osc[3].frequency.value)/4/2
+	subOsc.frequency.value = lowpass.frequency.value/3
 }
 
 //Filter Functions
