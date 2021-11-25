@@ -34,7 +34,7 @@ delayInput.connect(dryGain);
 dryGain.connect(delayOutput)
 
 
-//Conect Modules
+// Conect Modules
 osc.forEach(element => element.connect(synthmixer));
 subOsc.connect(synthmixer);
 synthmixer.connect(lowpass);
