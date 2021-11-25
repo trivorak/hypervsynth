@@ -21,7 +21,7 @@ var delayGain = audioCtx.createGain();
 var dryGain = audioCtx.createGain();
 var delayInput = audioCtx.createGain();
 var delayOutput = audioCtx.createGain();
-//Connect Delay Chain Main
+// Connect Delay Chain Main
 delayInput.connect(delay);
 delay.connect(delayGain);
 delayGain.connect(delayOutput);
