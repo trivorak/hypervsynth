@@ -87,8 +87,9 @@ function setRandomNotes(min,max){
 	osc.forEach(element => element.frequency.value = getRandomBetween(min,max));
 }
 
+// Set Sub Oscillator frequency @ 8th of the Average (of 4 osc)
 function setSubOsc(){
-	subOsc.frequency.value = lowpass.frequency.value/3
+	subOsc.frequency.value = lowpass.frequency.value/4
 }
 
 //Filter Functions
