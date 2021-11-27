@@ -82,7 +82,7 @@ osc.forEach(element => element.connect(synthmixer));
 subOsc.connect(synthmixer);
 synthmixer.connect(lowpass);
 lowpass.connect(delayInput);
-delayOutput.connect(reverbOutput);
+delayOutput.connect(reverbInput);
 reverbOutput.connect(volume);
 volume.connect(audioCtx.destination);
 
