@@ -96,7 +96,7 @@ fbLowpass.type = "lowpass";
 fbLowpass.frequency.value = 250;
 lowpass.type = "lowpass";
 lowpass.frequency.value = (osc1.frequency.value + osc2.frequency.value + osc3.frequency.value + osc4.frequency.value)/4/2
-setReverbWet(0.75);
+setReverbWet(0.65);
 setReverbTime(150);
 setReverbFeeback(0.95);
 
