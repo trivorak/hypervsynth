@@ -21,6 +21,9 @@ var delayGain = audioCtx.createGain();
 var dryGain = audioCtx.createGain();
 var delayInput = audioCtx.createGain();
 var delayOutput = audioCtx.createGain();
+var delayModOsc = audioCtx.createOscillator();
+var delayModGain = audioCtx.createGain();
+
 // Connect Delay Chain Main
 delayInput.connect(delay);
 delay.connect(delayGain);
@@ -75,6 +78,13 @@ reFeedback1Gain.gain.value = 0.5;
 reFeedback2Gain.gain.value = 0.5;
 reDelayL1.delayTime.value = 0.1;
 reDelayL2.delayTime.value = 0.333;
+delayModOsc.frequency.value = 0.05;
+delayModGain.gain.value = 10;
+//ModLFO
+delayModOsc.connect(delayModGain);
+delayModGain.connect(reDelayL1.delayTime);
+delayModGain.connect(reDelayL2.delayTime);
+delayModOsc.start();
 
 
 // Conect Modules
@@ -161,30 +171,37 @@ function setDelayWet(wetValue){
 	dryGain.gain.value = 1 - wetValue;
 }
 
+function setDelayTime(time){
+	delay.delayTime.value = time;
+}
+
+function setDelayFilterCutoff(cutoff){
+	fbLowpass.frequency.value = cutoff;
+}
 
 //Reverb Functions
 //----------------------------------------------------------
 //Set Delay Wet&Dry Mix 
 function setReverbWet(wetValue){
-    if (wetValue > 1) {
+		if (wetValue > 1) {
 		wetValue = 1;
 	} 
-	if (wetValue < 0) {
-		wetValue = 0;
+	if (wetValue = 0) {
+		wetValue = 0.001;
 	}
 	reDelay1Gain.gain.value = wetValue / 2;
-    reDelay2Gain.gain.value = wetValue / 2;
-    passthru.gain.value = 1 - wetValue;
+		reDelay2Gain.gain.value = wetValue / 2;
+		passthru.gain.value = 1 - wetValue;
 }
 
 //Set Delay Time based on a 1/13 prime number idea 
 function setReverbTime(inputTime){
-    reDelayL1.delayTime.value = inputTime * 1;
-    reDelayL2.delayTime.value = inputTime * 13;
+		reDelayL1.delayTime.value = inputTime * 1;
+		reDelayL2.delayTime.value = inputTime * 13;
 }
 
 function setReverbFeeback(feedback){
-    reFeedback1Gain.gain.value = feedback;
-    reFeedback2Gain.gain.value = feedback;
+		reFeedback1Gain.gain.value = feedback;
+		reFeedback2Gain.gain.value = feedback;
 }
-    
+		

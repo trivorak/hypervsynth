@@ -3,31 +3,45 @@
 <link rel="stylesheet" href="style.css">
 
 <head>
-    <title>HyperVsynth Testing Ground</title>
+		<title>HyperVsynth Testing Ground</title>
 </head>
 
 <body>
-    <input id="playButton" type="button" value="Start Sound"/><br><br>
-    <input id="newNote" type="button" value="Change Notes"/><br><br>
+		<input id="playButton" type="button" value="Start Sound"/><br><br>
+		<input id="newNote" type="button" value="Change Notes"/><br><br>
+		----------------------------------------------<br>
+		
+		Delay Time<br>
+		<input type="range" id ="delTime" min="0.001" max="3" value=".400" step="0.001"/><br><br>
+		
+		Delay Filter<br>
+		<input type="range" id ="delCutoff" min="10" max="1000" value="250" step="0.001"/><br><br>
+		----------------------------------------------<br>
 
-    Reverb Mix<br>
-    <input type="range" id ="revMix" min="0.001" max="1" value="0.65" step="0.001"/><br><br>
+		Reverb Mix<br>
+		<input type="range" id ="revMix" min="0.001" max="1" value="0.65" step="0.001"/><br><br>
 
-    Reverb DelayTime<br>
-    <input type="range" id ="revTime" min="0.001" max="500" value="150" step="0.001"/><br><br>
+		Reverb DelayTime<br>
+		<input type="range" id ="revTime" min="0.001" max="500" value="150" step="0.001"/><br><br>
 
 <script>
-    const playButton = document.getElementById('playButton')
-      .addEventListener('click', () => {audioCtx.resume()});
+		const playButton = document.getElementById('playButton')
+			.addEventListener('click', () => {audioCtx.resume()});
 
-    const newNote = document.getElementById('newNote')
-    .addEventListener('click', () => {newNotes(100,1000)});
+		const newNote = document.getElementById('newNote')
+		.addEventListener('click', () => {newNotes(100,1000)});
 
-    const setMix = document.getElementById('revMix')
-    .addEventListener('change', () => {setReverbWet(Number(document.getElementById('revMix').value))});
+		const delTime = document.getElementById('delTime')
+		.addEventListener('change', () => {setDelayTime(Number(document.getElementById('delTime').value))});
+		
+		const delCutoff = document.getElementById('delCutoff')
+		.addEventListener('change', () => {setDelayFilterCutoff(Number(document.getElementById('delCutoff').value))});
+		
+		const setMix = document.getElementById('revMix')
+		.addEventListener('change', () => {setReverbWet(Number(document.getElementById('revMix').value))});
 
-    const setRevTime = document.getElementById('revTime')
-    .addEventListener('change', () => {setReverbTime(Number(document.getElementById('revTime').value))});
+		const setRevTime = document.getElementById('revTime')
+		.addEventListener('change', () => {setReverbTime(Number(document.getElementById('revTime').value))});
 
 </script>
 <script src="hypervsynth.js"></script>
