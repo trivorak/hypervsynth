@@ -14,7 +14,7 @@ var volume = audioCtx.createGain();
 var osc = [osc1, osc2, osc3, osc4];
 
 //Delay Module
-var delay = audioCtx.createDelay();
+var delay = audioCtx.createDelay(maxDelayTime = 10);
 var fbLowpass = audioCtx.createBiquadFilter();
 var fbGain = audioCtx.createGain();
 var delayGain = audioCtx.createGain();
@@ -40,8 +40,8 @@ dryGain.connect(delayOutput)
 
 // Init Modules
 var reverbInput = audioCtx.createGain();
-var reDelayL1 = audioCtx.createDelay();
-var reDelayL2 = audioCtx.createDelay();
+var reDelayL1 = audioCtx.createDelay(maxDelayTime = 13);
+var reDelayL2 = audioCtx.createDelay(maxDelayTime = 13);
 var reDelay1Gain = audioCtx.createGain();
 var reDelay2Gain = audioCtx.createGain();
 var reFeedback1Gain = audioCtx.createGain();
@@ -107,7 +107,7 @@ fbLowpass.frequency.value = 250;
 lowpass.type = "lowpass";
 lowpass.frequency.value = (osc1.frequency.value + osc2.frequency.value + osc3.frequency.value + osc4.frequency.value)/4/2
 setReverbWet(0.65);
-setReverbTime(150);
+setReverbTime(0.5);
 setReverbFeeback(0.95);
 
 //Spin up Oscillators
