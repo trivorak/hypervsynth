@@ -179,6 +179,11 @@ function setDelayFilterCutoff(cutoff){
 	fbLowpass.frequency.value = cutoff;
 }
 
+function setDelayFeedbackGain(fbgain){
+	fbGain.gain.value = fbgain;
+}
+
+
 //Reverb Functions
 //----------------------------------------------------------
 //Set Delay Wet&Dry Mix 
