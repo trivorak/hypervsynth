@@ -124,7 +124,7 @@ subOsc.start();
 
 //Utility Functions
 //----------------------------------------------------------
-//Random Number between a min and max 
+//Random Number between a min and max
 function getRandomBetween(min,max){
 	return Math.random()*(max-min)+min;
 }
@@ -163,7 +163,7 @@ function setFilterHalfWay(){
 function setDelayWet(wetValue){
 	if (wetValue > 1) {
 		wetValue = 1;
-	} 
+	}
 	if (wetValue < 0) {
 		wetValue = 0;
 	}
@@ -186,11 +186,11 @@ function setDelayFeedbackGain(fbgain){
 
 //Reverb Functions
 //----------------------------------------------------------
-//Set Delay Wet&Dry Mix 
+//Set Delay Wet&Dry Mix
 function setReverbWet(wetValue){
 		if (wetValue > 1) {
 		wetValue = 1;
-	} 
+	}
 	if (wetValue = 0) {
 		wetValue = 0.001;
 	}
@@ -199,7 +199,7 @@ function setReverbWet(wetValue){
 		passthru.gain.value = 1 - wetValue;
 }
 
-//Set Delay Time based on a 1/13 prime number idea 
+//Set Delay Time based on a 1/13 prime number idea
 function setReverbTime(inputTime){
 		reDelayL1.delayTime.value = inputTime * 1;
 		reDelayL2.delayTime.value = inputTime * 13;
@@ -209,4 +209,3 @@ function setReverbFeeback(feedback){
 		reFeedback1Gain.gain.value = feedback;
 		reFeedback2Gain.gain.value = feedback;
 }
-		
