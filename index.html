@@ -12,24 +12,30 @@
 		----------------------------------------------<br>
 		
 		Delay Time<br>
-		<input type="range" id ="delTime" min="0.001" max="3" value=".400" step="0.001"/><br><br>
+		<input type="range" id ="delTime" min="0.001" max="3" value=".400" step="0.001"/><br>
 		
 		Delay Filter<br>
-		<input type="range" id ="delCutoff" min="10" max="1000" value="250" step="0.001"/><br><br>
+		<input type="range" id ="delCutoff" min="10" max="1000" value="250" step="0.001"/><br>
+
+		Delay Mix<br>
+		<input type="range" id ="delayMix" min="0" max="1" value="0" step="0.01"/><br>
+
+		Delay Feedback<br>
+		<input type="range" id="delfeedback" min="0" max="1" value="0" step="0.01"/><br>
 		----------------------------------------------<br>
 
 		Reverb Mix<br>
-		<input type="range" id ="revMix" min="0.001" max="1" value="0.65" step="0.001"/><br><br>
+		<input type="range" id ="revMix" min="0.001" max="1" value="0.65" step="0.001"/><br>
 
 		Reverb DelayTime<br>
-		<input type="range" id ="revTime" min="0.0001" max="1" value="0.0001" step="0.0001"/><br><br>
+		<input type="range" id ="revTime" min="0.0001" max="1" value="0.0001" step="0.0001"/><br>
 		----------------------------------------------<br>
 
 		Trem Speed<br>
-		<input type="range" id = "tremSpeed" min="0.001" max="20" value="0.1" step="0.001"/><br><br>
+		<input type="range" id = "tremSpeed" min="0.001" max="20" value="0.1" step="0.001"/><br>
 		
 		Trem Depth<br>
-		<input type="range" id = "tremDepth" min="0" max=".5" value="0" step="0.001"/><br><br>
+		<input type="range" id = "tremDepth" min="0" max=".5" value="0" step="0.001"/><br>
 
 
 
@@ -46,6 +52,12 @@
 		const delCutoff = document.getElementById('delCutoff')
 		.addEventListener('change', () => {setDelayFilterCutoff(Number(document.getElementById('delCutoff').value))});
 		
+		const delMix = document.getElementById('delayMix')
+		.addEventListener('change',() => {setDelayWet(Number(document.getElementById('delayMix').value))});
+
+		const delfeedback = document.getElementById('delfeedback')
+		.addEventListener('change',() => {setDelayFeedbackGain(Number(document.getElementById('delfeedback').value))});
+
 		const setMix = document.getElementById('revMix')
 		.addEventListener('change', () => {setReverbWet(Number(document.getElementById('revMix').value))});
 
@@ -57,6 +69,7 @@
 
 		const tremDepth = document.getElementById('tremDepth')
 		.addEventListener('change',()=> {setTremloDepth(Number(document.getElementById('tremDepth').value))})
+
 
 </script>
 <script src="hypervsynth.js"></script>
