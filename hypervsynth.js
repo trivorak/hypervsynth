@@ -23,6 +23,8 @@ var delayInput = audioCtx.createGain();
 var delayOutput = audioCtx.createGain();
 var delayModOsc = audioCtx.createOscillator();
 var delayModGain = audioCtx.createGain();
+var outModVolume = audioCtx.createOscillator();
+var outModVolumeGain = audioCtx.createGain();
 
 // Connect Delay Chain Main
 delayInput.connect(delay);
@@ -50,6 +52,7 @@ var passthru = audioCtx.createGain();
 var crossL1 = audioCtx.createGain();
 var crossL2 = audioCtx.createGain();
 var reverbOutput = audioCtx.createGain();
+
 //Connect Input -> Split two lines -> output gain -> output mixer (merger)
 reverbInput.connect(reDelayL1);
 reverbInput.connect(reDelayL2);
@@ -80,12 +83,19 @@ reDelayL1.delayTime.value = 0.1;
 reDelayL2.delayTime.value = 0.333;
 delayModOsc.frequency.value = 0.05;
 delayModGain.gain.value = 10;
+outModVolume.frequency.value = 1;
+outModVolumeGain.gain.value = 0.5;
+
 //ModLFO
 delayModOsc.connect(delayModGain);
-delayModGain.connect(reDelayL1.delayTime);
-delayModGain.connect(reDelayL2.delayTime);
-delayModOsc.start();
 
+// delayModGain.connect(reDelayL1.delayTime);
+// delayModGain.connect(reDelayL2.delayTime);
+
+delayModOsc.start();
+outModVolume.connect(outModVolumeGain);
+outModVolumeGain.connect(volume.gain);
+outModVolume.start();
 
 // Conect Modules
 osc.forEach(element => element.connect(synthmixer));
@@ -208,4 +218,14 @@ function setReverbTime(inputTime){
 function setReverbFeeback(feedback){
 		reFeedback1Gain.gain.value = feedback;
 		reFeedback2Gain.gain.value = feedback;
+}
+
+//Tremelo Functions
+//----------------------------------------------------------
+function setTremloSpeed(speed){
+	outModVolume.frequency.value = speed;
+}
+
+function setTremloDepth(depth){
+	outModVolumeGain.gain.value = depth;
 }
